@@ -105,3 +105,8 @@
          font-size: 20px;
          font-weight: bold;
          }
+         #hightscore{
+         background: cornflowerblue;
+         margin-bottom: 20px;
+         border-radius: 10px;
+         }

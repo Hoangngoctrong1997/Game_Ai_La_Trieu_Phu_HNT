@@ -2,8 +2,22 @@
 let currentQuestion = 0;
 let playerName = "";
 let curentQ = [];
+// let users = JSON.parse(localStorage.getItem('hightsoceProfile'));
+let users = JSON.parse(localStorage.getItem('hightsoceProfile')) || [];
+function loadHightScore() {
+  console.log(users);
+  console.log(typeof users);
+  if (Array.isArray(users)) {
+    for (let i = 0; i < users.length; i++) {
+      document.getElementById("hightscore").innerHTML += `
+        <div>${users[i].name} - ${users[i].score}</div>
+      `;
+    }
+  }
+}
+a = loadHightScore();
 function startgame(){
-  playerName = document.getElementById("name").value;
+  playerName = document.getElementById("player_name").value;
   document.getElementById("pageContent").style.display="inline";
   document.getElementById("btnStart").classList.remove("d-flex");
   document.getElementById("btnStart").style.display="none";
@@ -80,8 +94,11 @@ function selectAnswer(index) {
     document.getElementById('startAudio').pause();
     document.getElementById('wrongAns').play();
     const earned = prizeList[currentQuestion];
-    result.innerHTML = ` Sai rồi. Bạn ra về với ${earned}`;
-
+    let hightScore = {};
+    hightScore ={name:playerName,score:earned};
+    users.push(hightScore);
+    result.innerHTML = ` Thật tiếc. Bạn ra về với ${earned}`;
+    localStorage.setItem('hightsoceProfile', JSON.stringify(users));
     result.style.color = "red";
     for (let i = 0; i < 4; i++) {
       document.getElementById("option" + i).onclick = null;
