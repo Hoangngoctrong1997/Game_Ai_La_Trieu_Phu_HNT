@@ -14,8 +14,10 @@
       <div class="d-flex justify-content-center align-items-center vh-100"id="btnStart">
          <div class="text-center">
             <div class="container mt-5">
-                  <div id="hightscore">
-                     <h2 class="mb-4">Bảng Điểm</h2>
+                  <div class="container hightscore">
+                     <h2 class="mb-4">Điểm cao</h2>
+                     <div id="hightscore"></div>
+                     <button style="margin-bottom: 10px;" class="btn btn-primary"onclick="resetScore()">Reset</button>
                   </div>
             </div>
             <input id="player_name" type="text" class="form-control mb-3" placeholder="Nhập tên người chơi" style="width: 300px; margin: 0 auto;">
@@ -51,6 +53,7 @@
                   </div>
                </div>
                <div id="result"></div>
+               <div style="margin-left: 50%;" id="resetgame"></div>
             </div>
             <div id="sidebar">
                <h3>Tiền thưởng</h3>

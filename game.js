@@ -4,16 +4,27 @@ let playerName = "";
 let curentQ = [];
 // let users = JSON.parse(localStorage.getItem('hightsoceProfile'));
 let users = JSON.parse(localStorage.getItem('hightsoceProfile')) || [];
+function sortDescending(arr) {
+    return arr.sort((a, b) => b.score - a.score);
+}
 function loadHightScore() {
-  console.log(users);
-  console.log(typeof users);
-  if (Array.isArray(users)) {
-    for (let i = 0; i < users.length; i++) {
+  let newUers = sortDescending(users);
+  console.log(newUers);
+  if (Array.isArray(newUers)) {
+    for (let i = 0; i < Math.min(5, newUers.length); i++) {
       document.getElementById("hightscore").innerHTML += `
-        <div>${users[i].name} - ${users[i].score}</div>
+        <div class="row">
+        <div class="col-md-6">${newUers[i].name}</div>
+        <div class="col-md-4">${newUers[i].score}</div>
+        </div>
       `;
     }
   }
+}
+function resetScore(){
+  users = [];
+  localStorage.clear();
+    document.getElementById("hightscore").innerHTML = "";
 }
 a = loadHightScore();
 function startgame(){
@@ -89,6 +100,7 @@ function selectAnswer(index) {
       setTimeout(loadQuestion, 1000);
     } else {
       result.innerHTML = ` Chúc mừng! Bạn đã chiến thắng và nhận ${prizeList[currentQuestion]}`;
+      document.getElementById("resetgame").innerHTML = `<button class="btn btn-primary d-flex justify-content-center align-items-center "onclick="resetgame()">Chơi lại</button>`;
     }
   } else {
     document.getElementById('startAudio').pause();
@@ -98,12 +110,16 @@ function selectAnswer(index) {
     hightScore ={name:playerName,score:earned};
     users.push(hightScore);
     result.innerHTML = ` Thật tiếc. Bạn ra về với ${earned}`;
+    document.getElementById("resetgame").innerHTML = `<button class="btn btn-primary d-flex justify-content-center align-items-center "onclick="resetgame()">Chơi lại</button>`;
     localStorage.setItem('hightsoceProfile', JSON.stringify(users));
     result.style.color = "red";
     for (let i = 0; i < 4; i++) {
       document.getElementById("option" + i).onclick = null;
     }
   }
+}
+function resetgame(){
+  location.reload();
 }
 let used50_50 = false;
 
